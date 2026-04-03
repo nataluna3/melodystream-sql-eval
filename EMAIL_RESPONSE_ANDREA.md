@@ -23,7 +23,7 @@ We also tracked **execution rate** (did the query at least run?) and **latency**
 
 ## The headline: your gut on the baseline was right
 
-The simple prompt you’ve been using—“Convert this question to SQL”—**flatlined**. On both models we tried, **functional accuracy was 0%** on all ten questions. So if your team felt the POC was unreliable, **the eval backs that up**. It’s not them; the setup really wasn’t giving the model enough to work with.
+The simple prompt you’ve been using “Convert this question to SQL” **flatlined**. On both models we tried, **functional accuracy was 0%** on all ten questions. So if your team felt the POC was unreliable, **the eval backs that up**. It’s not them; the setup really wasn’t giving the model enough to work with.
 
 ## What changed when we fixed the prompt
 
@@ -38,11 +38,11 @@ Here’s how that 2×2 shook out:
 | **Improved prompt** | **Mixtral 8×22B Instruct** | **40%** (4/10) | **100%** | **0.84 s** |
 | Improved prompt | DeepSeek V3.2 | **10%** (1/10) | **90%** | **7.28 s** |
 
-Initially we had **Qwen2.5-Coder 32B** in scope—it’s purpose-built for SQL and code generation and would’ve been the obvious “heavy hitter” here—but it sits behind **on-demand deployment** on Fireworks, not the **serverless** path we could use for this exercise. So we benchmarked against the **strongest serverless models available to us** (Mixtral 8×22B Instruct and DeepSeek V3.2), which still shows clearly what fixing the prompt does for you. When MelodyStream is ready to push accuracy further, **a dedicated Qwen Coder deployment** is where I’d go first—it’s usually the cleanest way to get a big jump on gnarly joins and analytics SQL without changing how your teams work with the product.
+Initially we had **Qwen2.5-Coder 32B** in scope—it’s purpose-built for SQL and code generation and would’ve been the obvious “heavy hitter” here, but it sits behind **on-demand deployment** on Fireworks, not the **serverless** path we could use for this exercise. So we benchmarked against the **strongest serverless models available to us** (Mixtral 8×22B Instruct and DeepSeek V3.2), which still shows clearly what fixing the prompt does for you. When MelodyStream is ready to push accuracy further, **a dedicated Qwen Coder deployment** is where I’d go first—it’s usually the cleanest way to get a big jump on gnarly joins and analytics SQL without changing how your teams work with the product.
 
 A few things jump out:
 
-- **Improved prompt + Mixtral** is the only combo where **every query was at least valid SQLite** (100% execution), and it **answered four of ten exactly right**—not where we want to land forever, but a real step up from “0% and mostly hallucinated table names.”
+- **Improved prompt + Mixtral** is the only combo where **every query was at least valid SQLite** (100% execution), and it **answered four of ten exactly right**, not where we want to land forever, but a real step up from “0% and mostly hallucinated table names.”
 - **DeepSeek** did pull more queries into “runs without error” with the improved prompt, but **accuracy stayed low** and latency sat around **7.3 seconds per question**. For a tool people reach for all day, that’s going to feel heavy, and it didn’t buy you a better hit rate on this set than Mixtral.
 
 ## What I’d recommend for MelodyStream
@@ -64,7 +64,7 @@ I’m not claiming you’ll never want guardrails—in production I’d still wa
 3. **Harvest failures** from real usage and append them to your golden set—that’s how 40% becomes 70%+.  
 4. When volume justifies it, talk to us about **fine-tuning** on Fireworks so the model learns MelodyStream’s *actual* query language.
 
-Everything—including how to reproduce these numbers—is in the repo: **https://github.com/nataluna3/melodystream-sql-eval** (README → **Solution**). If you want a short walkthrough live, happy to slot something in.
+Everything, including how to reproduce these numbers—is in the repo: **https://github.com/nataluna3/melodystream-sql-eval** (README → **Solution**). If you want a short walkthrough live, happy to slot something in.
 
 Thanks for trusting us with a real problem. This is solvable; you’re just past the “vibe check” stage and into the part where measurement makes it boring—in a good way.
 
