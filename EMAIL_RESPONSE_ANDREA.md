@@ -70,6 +70,7 @@ Thanks for trusting us with a real problem. This is solvable; you’re just past
 
 Best,  
 Nathalia Luna
+Solutions Architect
 
 ---
 
