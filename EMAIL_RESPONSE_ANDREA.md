@@ -17,7 +17,7 @@ We built a small harness around your Chinook database and the ten questions in `
 
 1. Ask the model for SQL.  
 2. Run it against your SQLite file.  
-3. Check whether the **rows come back exactly right** compared to your ground truth—same data, including the messy duplicate rows in the playlist cases. (We don’t insist the SQL text matches ours letter for letter; we care whether the **answer** matches.)
+3. Check whether the **rows come back exactly right** compared to your ground truth (same data), including the messy duplicate rows in the playlist cases. (We don’t insist the SQL text matches ours letter for letter; we care whether the **answer** matches.)
 
 We also tracked **execution rate** (did the query at least run?) and **latency** (how long the model took per question), because “throughout the workday” matters as much as accuracy.
 
@@ -38,7 +38,7 @@ Here’s how that 2×2 shook out:
 | **Improved prompt** | **Mixtral 8×22B Instruct** | **40%** (4/10) | **100%** | **0.84 s** |
 | Improved prompt | DeepSeek V3.2 | **10%** (1/10) | **90%** | **7.28 s** |
 
-Initially we had **Qwen2.5-Coder 32B** in scope—it’s purpose-built for SQL and code generation and would’ve been the obvious “heavy hitter” here, but it sits behind **on-demand deployment** on Fireworks, not the **serverless** path we could use for this exercise. So we benchmarked against the **strongest serverless models available to us** (Mixtral 8×22B Instruct and DeepSeek V3.2), which still shows clearly what fixing the prompt does for you. When MelodyStream is ready to push accuracy further, **a dedicated Qwen Coder deployment** is where I’d go first—it’s usually the cleanest way to get a big jump on gnarly joins and analytics SQL without changing how your teams work with the product.
+Initially we had **Qwen2.5-Coder 32B** in scope, it’s purpose-built for SQL and code generation and would’ve been the obvious “heavy hitter” here, but it sits behind **on-demand deployment** on Fireworks, not the **serverless** path we could use for this exercise. So we benchmarked against the **strongest serverless models available to us** (Mixtral 8×22B Instruct and DeepSeek V3.2), which still shows clearly what fixing the prompt does for you. When MelodyStream is ready to push accuracy further, **a dedicated Qwen Coder deployment** is where I’d go first, it’s usually the cleanest way to get a big jump on gnarly joins and analytics SQL without changing how your teams work with the product.
 
 A few things jump out:
 
@@ -55,7 +55,7 @@ Fireworks is a good long-term home for this, in plain English:
 - Inference is **fast where it matters**: we saw **sub-second average latency** on Mixtral with this workload— workable for interactive BI.
 - When you’ve accumulated enough **good question → SQL** pairs from your own analysts, you can **fine-tune** on **your** patterns so the model speaks *your* schema and naming habits, not a generic demo.
 
-I’m not claiming you’ll never want guardrails—in production I’d still want read-only connections, sensible row limits, and maybe a quick human glance for high-stakes numbers. But this gets you from “we can’t tell if it works” to **a measured baseline** and a **clear direction**.
+I’m not claiming you’ll never want guardrails, in production I’d still want read-only connections, sensible row limits, and maybe a quick human glance for high-stakes numbers. But this gets you from “we can’t tell if it works” to **a measured baseline** and a **clear direction**.
 
 ## Next steps (concrete)
 
@@ -66,7 +66,7 @@ I’m not claiming you’ll never want guardrails—in production I’d still wa
 
 Everything, including how to reproduce these numbers—is in the repo: **https://github.com/nataluna3/melodystream-sql-eval** (README → **Solution**). If you want a short walkthrough live, happy to slot something in.
 
-Thanks for trusting us with a real problem. This is solvable; you’re just past the “vibe check” stage and into the part where measurement makes it boring—in a good way.
+Thanks for trusting us with a real problem. This is solvable; you’re just past the “vibe check” stage and into the part where measurement makes it boring in a good way.
 
 Best,  
 Nathalia Luna
