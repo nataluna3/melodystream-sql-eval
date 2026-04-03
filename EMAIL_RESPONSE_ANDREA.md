@@ -9,7 +9,7 @@
 
 Hi Andrea,
 
-Thanks again for looping us in. I know your team’s time is tight, so I’ll cut straight to what you asked for: **how to measure this**, **how to fix the prompt**, and **what to run in production**—with real numbers from the benchmark you shared, not hand-waving.
+Thanks again for looping us in. I know your team’s time is tight, so I’ll cut straight to what you asked for: **how to measure this**, **how to fix the prompt**, and **what to run in production**, with real numbers from the benchmark you shared, not hand-waving.
 
 ## What we actually tested
 
